@@ -1,0 +1,20 @@
+
+{% block content %}
+
+    <div class="profile">
+      <span>Hellow!</span>
+      <h1 class="user-label">Faisal</h1>
+        {% if user.is_authenticated %}
+            {% if user.is_admin %}
+              <span class="badge badge-success">Admin</span>
+            {% else %}
+              <span class="badge badge-success">User</span>
+            {% endif %}
+        {% endif %}
+    </div>
+    <hr/>
+    <ul class="nav nav-tabs nav-stacked">
+      <li><a href='{% url 'home' %}'>Home</a></li>
+      <li><a href='{% url 'create_user' %}'>Users</a></li>
+    </ul>
+{% endblock %}

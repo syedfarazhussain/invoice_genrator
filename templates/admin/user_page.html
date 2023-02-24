@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="row">
+
+        
+
+
+        <div class="col-md-4">
+            {% include "left-sidebar.html" %}
+        </div>
+        <div class="col-md-8">
+            {% include "breadcrumb-header.html" %}
+            
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>User Id</th>
+                    <th>User Name</th>
+                    <th>User Type</th>
+                    <th style="width: 36px;"></th>
+                </tr>
+                </thead>
+                <tbody>
+            {% for user in get_user %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.is_user }}</td>
+                    <td>
+                        <a href="user.html"><i class="icon-pencil"></i></a>
+                        <a href="#myModal" role="button" data-toggle="modal"><i class="icon-remove"></i></a>
+                    </td>
+                </tr>
+            {% endfor %}
+                </tbody>
+            </table> 
+        </div>
+
+    </div>
+
+    
+
+
+{% endblock %}

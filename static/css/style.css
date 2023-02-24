@@ -1,0 +1,23 @@
+.badges{
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+}
+.badges .badge{
+    font-size: 16px;
+    border-radius: 50px;
+    align-self: center;
+    margin-right: 20px;
+}
+.d-flex{
+    display: flex!important;
+    flex-direction: row;
+    justify-content: center;
+}
+.profile .user-label{
+    margin-top: 5px!important;
+}
+.main-content{
+    
+}
