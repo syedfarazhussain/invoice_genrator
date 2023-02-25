@@ -53,7 +53,7 @@ def admin_signup(request):
 
 def create_user(request):
     # if this is a POST request we need to process the form data
-    template = 'admin/user_page.html'
+    template = 'user_register.html'
    
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
@@ -75,20 +75,15 @@ def create_user(request):
                 user = User.objects.create_user(
                     form.cleaned_data['username'],
                 )
-                user.set_password(form.cleaned_data['password']),
+                user.set_password(form.cleaned_data['password'])
                 user.email = ''
-                user.is_user = True
+                user.is_admin = True
                 user.save()
+                registred=True
 
                 # redirect to accounts page:
-                messages.success(request, ('User has been  successfully Created '))
-                User = get_user_model()
-                users = User.objects.all()
-                get_all_is_user = users.values_list('is_user', flat=True)
-                context = {
-                    "get_user" : get_all_is_user
-                }
-                return render(request, 'admin/user_page.html', context)
+                messages.success(request, ('User has been registerd successfully '))
+                return render(request, 'admin/user_page.html')
 
    # No post data availabe, let's just show the page.
     else:

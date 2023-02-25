@@ -4,9 +4,6 @@
 
     <div class="row">
 
-        
-
-
         <div class="col-md-4">
             {% include "left-sidebar.html" %}
         </div>
@@ -23,11 +20,11 @@
                 </tr>
                 </thead>
                 <tbody>
-            {% for user in get_user %}
+            {% for user in get_all_is_user %}
                 <tr>
                     <td>{{ user.id }}</td>
-                    <td>{{ user.name }}</td>
-                    <td>{{ user.is_user }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>user</td>
                     <td>
                         <a href="user.html"><i class="icon-pencil"></i></a>
                         <a href="#myModal" role="button" data-toggle="modal"><i class="icon-remove"></i></a>

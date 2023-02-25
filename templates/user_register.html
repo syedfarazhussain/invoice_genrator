@@ -2,11 +2,11 @@
 
 {% block content %}
     <div class="container">
-        <form action="{% url 'user_signup' %}" method="post">
+        <form action="{% url 'create_user' %}" method="post">
             {% csrf_token %}
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">User Registeration</div>
+                    <div class="panel-heading">Create User</div>
                     <div class="panel-body">
                         {% if error_message %}
                             <p class="bg-danger p-d ml-b">{{ error_message }}</p>
