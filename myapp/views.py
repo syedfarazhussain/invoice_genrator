@@ -1,9 +1,24 @@
 from django.shortcuts import render
+from django.urls import reverse_lazy 
 from django.contrib.auth import get_user_model
-
+from django.contrib.messages.views import SuccessMessageMixin
+from django.views.generic import CreateView
+from .models import Invoice
+from .forms import InvoiceForm
 
 # Create your views here.
+class InvoiceCreateView(SuccessMessageMixin, CreateView):
+    model = Invoice
+    form_class = InvoiceForm
+    template_name = 'contact.html'
+    success_message = 'your message Successful send'
+    success_url = reverse_lazy('home')
 
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+    
 def home(request):
     if request.user.is_authenticated:
         if request.user.is_admin:
@@ -29,5 +44,5 @@ def user_page(request):
     return render(request, 'admin/user_page.html', context)
 
 def invoice_form(request):
-    
+
     return render(request, 'admin/content.html')
