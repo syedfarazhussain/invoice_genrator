@@ -11,7 +11,7 @@ class InvoiceCreateView(SuccessMessageMixin, CreateView):
     model = Invoice
     form_class = InvoiceForm
     template_name = 'contact.html'
-    success_message = 'your message Successful send'
+    success_message = 'your form Successful submited'
     success_url = reverse_lazy('home')
 
 
@@ -22,6 +22,8 @@ class InvoiceCreateView(SuccessMessageMixin, CreateView):
 def home(request):
     if request.user.is_authenticated:
         if request.user.is_admin:
+            return render(request, 'admin/content.html')
+        elif request.user.is_superuser:
             return render(request, 'admin/content.html')
         else:
             return render(request, 'user/test.html')
