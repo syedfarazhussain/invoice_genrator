@@ -1,19 +1,19 @@
 {% block content %}
-
-    <div class="profile">
-      <span>Hellow!</span>
-      <h1 class="user-label">Faisal</h1>
-        {% if user.is_authenticated %}
-            {% if user.is_admin %}
-              <span class="badge badge-success">Admin</span>
-            {% else %}
-              <span class="badge badge-success">User</span>
-            {% endif %}
-        {% endif %}
-    </div>
-    <hr/>
-    <ul class="nav nav-tabs nav-stacked">
-      <li><a href='{% url 'home' %}'>Home</a></li>
-      <li><a href='{% url 'user_page' %}'>Users</a></li>
-    </ul>
+    <div class="bg-light border rounded-3">
+      <div class="d-flex flex-column flex-shrink-0 p-3" style="width: 280px;">
+          <ul class="left-sidebar nav nav-pills flex-column mb-auto">
+            <li class="nav-item">
+              <a href="{% url 'dashboard' %}" class="nav-link active" aria-current="page">
+                <i class="bi bi-house-door"></i>
+               Dashboard
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'users' %}" class="nav-link link-dark">
+                <i class="bi bi-people"></i>
+                Users
+              </a>
+            </li>
+          </ul>
+        </div>
 {% endblock %}
