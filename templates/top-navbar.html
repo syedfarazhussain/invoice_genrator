@@ -1,3 +1,60 @@
+{% load static %}
+<header class="py-3 mb-3 border-bottom">
+    <div class="container-fluid d-grid gap-3 align-items-center" style="grid-template-columns: 280px 2fr;">
+      <div class="">
+        <a href="#" class="d-flex align-items-center col-lg-4 mb-2 mb-lg-0 link-dark text-decoration-none"> 
+            <svg id="a" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150" width="50" height="50">
+            <defs><style>.b{fill:none;}</style></defs>
+                <path class="b" d="M0,0H150V150H0V0Z"/>
+                <g>
+                <path d="M10.52,17.06v29.31c14.2,9.82,50.25,34.68,64.25,43.77,13.55-9.17,50.26-34.22,64.25-43.77V17.06L74.77,60.83,10.52,17.06Z" style="fill: #0d6efd!important;"/>
+                <polygon points="10.52 135.92 46.26 115.04 10.52 93.76 10.52 135.92"/>
+                <polygon points="139.02 135.92 139.02 93.76 103.28 115.04 139.02 135.92"/>
+                </g>
+            </svg>
+        </a>
+      </div>
+
+        <div class="d-flex justify-content-between">
+            {% if user.is_authenticated %}
+            <h4> {{ title }} </h4>
+            <div>
+                <div class="dropdown">
+                    <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+                        {{ user.get_username | title }} 
+                        {% if user.is_admin %}
+                            <span class="badge text-bg-primary pt-0">Admin</span>
+                        {% else %}
+                            <span class="badge text-bg-primary pt-0">user</span>
+                        {% endif %}
+                    </a>
+                    <ul class="dropdown-menu text-small shadow">
+                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="{% url 'logout' %}">Sign out</a></li>
+                    </ul>
+                </div>
+                
+            </div>
+            {% else %}
+            <h4> </h4>
+            <div class="float-end text-end">
+                <a href="{% url 'login' %}" class="btn btn-outline-primary me-2">Login</a>
+                <a href="{% url 'admin_signup' %}" class="btn btn-primary">Sign-up</a>
+            </div>
+            {% endif %}
+        </div>
+
+            
+
+        
+        
+    </div>
+  </header>
+
+
+{% comment %}
 <nav class="navbar navbar-inverse" role="navigation">
     <div class="container">
         <div class="navbar-header">
@@ -11,7 +68,7 @@
         {% if user.is_authenticated %}
             {% if user.is_student %}
             <ul class="nav navbar-nav">
-                {% comment %} <li><a href="#">Status</a></li>
+                 <li><a href="#">Status</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Memorize<span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -25,7 +82,7 @@
                 <li><a href="{% url 'PracticeLevels' slug_id=1 %}" >Practice</a></li>
                 <li><a href="{% url 'MyTestHome' %}">Test</a></li>
                 
-            </ul> {% endcomment %}
+            </ul> 
             {% else %}
             
             {% endif %}
@@ -46,4 +103,4 @@
         </div>
         {% endif %}
             
-</nav>
+</nav>{% endcomment %}
