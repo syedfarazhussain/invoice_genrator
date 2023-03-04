@@ -1,8 +1,8 @@
 from django.forms import ModelForm
-from .models import Invoice
+from .models import UserData
 
 
-class InvoiceForm(ModelForm):
+class UserDataForm(ModelForm):
     class Meta:
-        model = Invoice
+        model = UserData
         fields =  ['gbp_rate', 'smtp_user', 'smtp_server','smtp_port', 'smtp_pass','smtp_sender']
