@@ -1,0 +1,34 @@
+<!-- Modal popup -->
+<div id="confirm-continue-popup">
+  <p>Do you want to continue processing the file?</p>
+  <button id="confirm-button">Yes</button>
+  <button id="cancel-button">No</button>
+</div>
+
+<script>
+  // Show popup window
+  document.getElementById('confirm-continue-popup').style.display = 'block';
+
+  // Set boolean variable based on user response
+  document.getElementById('confirm-button').addEventListener('click', function() {
+    var form = document.getElementById('confirm-continue-form');
+    form.elements.confirm_continue.value = true;
+    form.submit();
+    document.getElementById('confirm-continue-popup').style.display = 'none';
+  });
+
+  document.getElementById('cancel-button').addEventListener('click', function() {
+    var form = document.getElementById('confirm-continue-form');
+    form.elements.confirm_continue.value = false;
+    form.submit();
+    document.getElementById('confirm-continue-popup').style.display = 'none';
+  });
+</script>
+
+<form id="confirm-continue-form" method="POST">
+  {% csrf_token %}
+  <input type="hidden" name="confirm_continue" value="">
+</form>
+
+
+

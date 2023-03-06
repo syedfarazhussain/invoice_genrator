@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="modal fade" id="myModal" role="dialog">
+       <div class="modal-dialog">
+       
+         <!-- Modal content-->
+         <div class="modal-content">
+           <div class="modal-header">
+             <h4 class="modal-title">File selected {{file_name}}. This action will send invoice.do you want to continue?</h4>
+             <button type="button" class="close" data-dismiss="modal">&times;</button>
+           </div>
+           <div class="modal-body">
+             <form id="myForm">
+               <input type="text" name="yes" id="myData">
+               <button type="button" class="btn btn-primary" id="submitBtn">Submit</button>
+             </form>
+           </div>
+           <div class="modal-footer">
+             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+           </div>
+         </div>
+         
+       </div>
+     </div>
+     
+     <div class="row p-3">
+
+       <div class="col-md-6">
+              <h2>Upload Account List File</h2>
+              <form action="{% url 'create_account_list' %}" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              <input type="file"
+                     title="Upload excel file"
+                     name="account_data_file"
+                     style="border: 1px solid black; padding: 5px;"
+                     required="required">
+              <p>
+              <input type="submit"
+                     value="Upload"
+                     style="border: 1px solid green; padding:5px; border-radius: 2px; cursor: pointer;">
+              </form>
+
+       </div>
+       <div class="col-md-6">
+              <h2>Upload Lifting Fee File</h2>
+
+              <form action="{% url 'browse_lifting_file' %}" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              <input type="file"
+                     title="Upload excel file"
+                     name="lift_fee_file"
+                     style="border: 1px solid black; padding: 5px;"
+                     required="required">
+              <p>
+              <input type="submit"
+                     value="Upload"
+                     style="border: 1px solid green; padding:5px; border-radius: 2px; cursor: pointer;">
+              </form>
+
+       </div>
+       <div class="col-md-6">
+              <h2>Split Lifting Fee File</h2>
+
+              <form action="{% url 'add_group_condition' %}" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              <input type="file"
+                     title="Upload excel file"
+                     name="parent_child_file"
+                     style="border: 1px solid black; padding: 5px;"
+                     required="required">
+              <p>
+              <input type="submit"
+                     value="Upload"
+                     style="border: 1px solid green; padding:5px; border-radius: 2px; cursor: pointer;">
+              </form>
+       </div>
+       <div class="col-md-6">
+        <h2>Get Invoice Data</h2>
+
+        <form action="{% url 'add_group_condition' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file"
+               title="Upload excel file"
+               name="parent_child_file"
+               style="border: 1px solid black; padding: 5px;"
+               required="required">
+        <p>
+        <input type="submit"
+               value="Upload"
+               style="border: 1px solid green; padding:5px; border-radius: 2px; cursor: pointer;">
+        </form>
+ </div>
+</div>
+
+
+<br><br>
+<script>
+       $(document).ready(function() {
+         $("#submitBtn").click(function() {
+           $.ajax({
+             type: "POST",
+             url: "/my-view/",
+             data: $("#myForm").serialize(),
+             success: function(response) {
+               alert("Data submitted successfully!");
+             },
+             error: function(xhr) {
+               alert("Error: " + xhr.responseText);
+             }
+           });
+         });
+       });
+       </script>
+       
+
+{% endblock %}
