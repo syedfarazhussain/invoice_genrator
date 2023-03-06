@@ -32,6 +32,25 @@ def dashboard(request):
     else:
         return redirect('account/login')
 
+@login_required
+def settings(request):
+    template = 'admin/settings.html'
+
+    context = {
+        'title': 'Settings'
+    }
+
+    return render(request, template, context)
+
+@login_required
+def upload_files(request):
+    template = 'admin/upload-files.html'
+
+    context = {
+        'title': 'Upload Files'
+    }
+
+    return render(request, template, context)
 
 @login_required
 def user_page(request):
