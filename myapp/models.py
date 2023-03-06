@@ -72,7 +72,7 @@ class AccountList(models.Model):
     is_considered = models.CharField(max_length=200)
 
     def __str__(self):
-        return str(self.account_name)
+        return str(self.user)
     
 
 class CpDeskInvoices(models.Model):

@@ -7,8 +7,11 @@ urlpatterns = [
     path('settings/', views.settings, name='settings'),
     path('upload_files/', views.upload_files, name='upload_files'),
     path('dashboard/', views.dashboard, name='dashboard'),
+    path('cp_desk_view/', views.cp_desk_view, name='cp_desk_view'),
     path('insert_user_data/', views.insert_user_data, name='insert_user_data'),
     path('upload_master_data/', views.upload_master_data, name='upload_master_data'),
     path('add_email_condition/', views.add_email_condition, name='add_email_condition'),
     path('add_group_condition/', views.add_group_condition, name='add_group_condition'),
+    path('create_account_list/', views.create_account_list, name='create_account_list'),
+    path('browse_lifting_file/', views.browse_lifting_file, name='browse_lifting_file'),
 ]
