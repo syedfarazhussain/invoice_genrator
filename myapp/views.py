@@ -41,6 +41,25 @@ def dashboard(request):
     else:
         return redirect('account/login')
 
+@login_required
+def settings(request):
+    template = 'admin/settings.html'
+
+    context = {
+        'title': 'Settings'
+    }
+
+    return render(request, template, context)
+
+@login_required
+def upload_files(request):
+    template = 'admin/upload-files.html'
+
+    context = {
+        'title': 'Upload Files'
+    }
+
+    return render(request, template, context)
 
 @login_required
 def user_page(request):
@@ -130,6 +149,8 @@ def upload_master_data(request):
         "Status": "status",
     }
 
+    success_message_displayed = False
+
     # Iterate through the rows and add the data to the SQL table
     for row in ws.iter_rows(min_row=2):
         contact_name = row[0].value
@@ -150,6 +171,9 @@ def upload_master_data(request):
             existing_data.vat_type = data["vat_type"]
             existing_data.status = data["status"]
             existing_data.save()
+            if not success_message_displayed:
+                messages.success(request, 'Master Data Updated Successfully')
+                success_message_displayed = True
         else:
             # Create a new row with the user's data
             master_data = MasterData.objects.create(
@@ -162,8 +186,9 @@ def upload_master_data(request):
                 status=data["status"],
                 user=request.user
             )
-
-    messages.success(request, ('Master Data Uploaded Successfully'))
+            if not success_message_displayed:
+                messages.success(request, ('Master Data Uploaded Successfully'))
+                success_message_displayed = True
     return redirect('dashboard')
 
 

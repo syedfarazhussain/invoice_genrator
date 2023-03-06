@@ -4,6 +4,8 @@ from .import views
 urlpatterns = [
     path('', views.dashboard, name=''),
     path('users/', views.user_page, name='users'),
+    path('settings/', views.settings, name='settings'),
+    path('upload_files/', views.upload_files, name='upload_files'),
     path('dashboard/', views.dashboard, name='dashboard'),
     path('cp_desk_view/', views.cp_desk_view, name='cp_desk_view'),
     path('insert_user_data/', views.insert_user_data, name='insert_user_data'),
