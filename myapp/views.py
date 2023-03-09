@@ -4,16 +4,17 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
+from django.urls import reverse
 from .forms import UserDataForm
 import pandas as pd
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
-import openpyxl
-import json
+import openpyxl, json
 from django.core import serializers
 from .utils import process_de_data
+from django.conf import settings
 from time import sleep
 from .models import (UserData,
                     EmailCondition,
@@ -37,7 +38,10 @@ def dashboard(request):
             }
             return render(request, template_admin, context)
         else:
-            return render(request, template_user)
+            context = {
+                'title': 'Dashboard'
+            }
+            return render(request, template_user, context)
     else:
         return redirect('account/login')
 
@@ -73,6 +77,14 @@ def user_page(request):
     }
     return render(request, template, context)
 
+@login_required
+def cp_desk_view(request):
+    template = 'user/cp_desk.html'
+
+    context = {
+        'title': 'Cp_Desk'
+    }
+    return render(request, template, context)
 
 @login_required
 def insert_user_data(request):
@@ -130,13 +142,15 @@ def upload_master_data(request):
             wb = openpyxl.load_workbook(file)
             ws = wb.active
     except:
-        return render(request, 'dashboard.html', {'error_message': '"Invalid Excel File"'})
+        messages.error(request, "Invalid Excel File")
+        return redirect('dashboard')
 
     # Validate the columns
     expected_columns = ["*ContactName", "Customer Address", "Email id", "CC email id", "*Description", "VAT Type", "Status"]
     header = [cell.value for cell in ws[1]]
     if header != expected_columns:
-        return render(request, 'dashboard.html', {'error_message': '"Invalid Data"'})
+        messages.error(request, "Invalid Data")
+        return redirect('dashboard')
 
     # Map the columns to the corresponding fields in the SQL table
     column_mapping = {
@@ -201,7 +215,8 @@ def add_email_condition(request):
             wb = openpyxl.load_workbook(file)
             ws = wb.active
     except:
-        return render(request, 'dashboard.html', {'error_message': 'Invalid Excel File'})
+        messages.error(request, "'Invalid Excel File'")
+        return redirect('dashboard')
 
     # Validate the columns
     expected_columns = ["Name", "Type"]
@@ -209,7 +224,8 @@ def add_email_condition(request):
     if 'Sr.No.' in header:
         header.remove('Sr.No.')
     if header != expected_columns:
-        return render(request, 'dashboard.html', {'error_message': 'Invalid Data'})
+        messages.error(request, "'Invalid Data'")
+        return redirect('dashboard')
 
     # Map the columns to the corresponding fields in the SQL table
     column_mapping = {
@@ -263,13 +279,15 @@ def add_group_condition(request):
             wb = openpyxl.load_workbook(file)
             ws = wb.active
     except:
-        return render(request, 'dashboard.html', {'error_message': 'Invalid Excel File'})
-
+        messages.error(request, "'Invalid Excel File'")
+        return redirect('dashboard')
+        
     # Validate the columns
     expected_columns = ["Parent", "Child","Parent_Company_Name"]
     header = [cell.value for cell in ws[1]]
     if header != expected_columns:
-        return render(request, 'dashboard.html', {'error_message': 'Invalid Data'})
+        messages.error(request, "'Invalid Data''")
+        return redirect('dashboard')
 
     # Map the columns to the corresponding fields in the SQL table
     column_mapping = {
@@ -334,6 +352,7 @@ def add_group_condition(request):
 
 @login_required
 def create_account_list(request):
+    template_name = 'user/user_dashboard.html'
     try:
         # Open the excel file and get the active sheet
         if request.method == 'POST' and request.FILES['account_data_file']:
@@ -341,13 +360,15 @@ def create_account_list(request):
             wb = openpyxl.load_workbook(file)
             ws = wb.active
     except:
-        return render(request, 'user/user_dashboard.html', {'error_message': 'Invalid Excel File'})
+        messages.error(request, "'Invalid Excel File'")
+        return redirect('dashboard')
 
     expected_columns = ["Account Name", "isConsidered"]
     header = [cell.value for cell in ws[1]]
     header = [col_name for col_name in header if col_name != 'SrN0.']
     if header != expected_columns:
-        return render(request, 'user/user_dashboard.html', {'error_message': 'Invalid Data'})
+        messages.error(request, "Invalid Data")
+        return redirect('dashboard')
     
     column_mapping = {
         "Account Name": "account_name",
@@ -379,7 +400,7 @@ def create_account_list(request):
                 if not success_message_displayed:
                     messages.success(request, 'Account_list uploaded successfully.')
                     success_message_displayed = True
-    return render(request, "user/user_dashboard.html")
+    return redirect('dashboard')
 
 
 def browse_lifting_file(request):
@@ -389,12 +410,13 @@ def browse_lifting_file(request):
     if request.method == 'POST':
         if 'lift_fee_file' in request.FILES:
             file = request.FILES['lift_fee_file']
-
-            lifting_file = file
+            filename = file.name
+            # DefaultPath = settings.MEDIA_ROOT
 
             lift_fee_file = pd.read_excel(file)
             required_columns = ['Buy', 'Buy Amount', 'Sell', 'Sell Amount', 'Fee', 'Total Settlement', 'Beneficiary', 'When Booked', 'When Created', 'Created By', 'Delivery Method', 'Reference', 'Delivery Country ISO Code', 'Delivery Country Name', 'Your Reference', 'Cheque Number', 'Beneficiary ID', 'Execution Date', 'Payment Line Status', 'Payment Number', 'Processing Date', 'Bank Reference Number', 'AccountName', 'Bank Value Date', 'Exchange Rate', 'Our Reference', 'Charges Type', 'USD AMOUNT']
 
+            
             if not set(required_columns).issubset(lift_fee_file.columns):
                 messages.error(request, '!Invalid Lifting fee file.')
                 return render(request, template_name)
@@ -407,12 +429,20 @@ def browse_lifting_file(request):
                 user_data = serializers.serialize('json', user_data)  # serialize the UserData object to JSON
                 user_data = json.loads(user_data)[0]['fields']  # deserialize the JSON to a dictionary and get the fields
 
-            request.session['lifting_file'] = lifting_file
+            lift_fee_data = lift_fee_file.to_dict(orient='records')
+
+            for row in lift_fee_data:
+                for key, value in row.items():
+                    if isinstance(value, pd.Timestamp):
+                        row[key] = value.strftime('%Y-%m-%d %H:%M:%S')
+            lift_fee_json_data = json.dumps(lift_fee_data)
+            request.session['lift_fee_json_data'] = lift_fee_json_data
             request.session['user_data'] = user_data
 
             template_data = {
-                'lifting_file': lifting_file,
+                'lift_fee_json_data': lift_fee_json_data,
                 'user_data': user_data,
+                'confirm_url': reverse,
             }
             return render(request, 'user/confirm_continue.html', template_data)
 
@@ -426,86 +456,24 @@ def browse_lifting_file(request):
             if not confirm_continue_result:
                 return redirect('browse_lifting_file')
 
-            lifting_file = request.session.get('lifting_file')
+            lift_fee_json_data = request.session.get('lift_fee_json_data')
             user_data = request.session.get('user_data')
 
         try:
-            process_de_data(request, lifting_file, user_data)
+            process_de_data(request, lift_fee_json_data, user_data)
             messages.success(request, '!Process is completed successfully')
 
             subject = 'Process is completed successfully'
             html_content = render_to_string('user/user_dashboard.html', {'context': 'All invoices are generated and sent over recipient email(s) address'})
             text_content = strip_tags(html_content)
-            msg = EmailMultiAlternatives(subject, text_content, settings.EMAIL_HOST_USER, ['recipient@example.com'])
-            msg.attach_alternative(html_content, "text/html")
-            msg.send()
 
         except Exception as e:
             traceback.print_exc()
             messages.error(request, f'!Error Occurred: {e}')
         finally:
-            messages.success(request, '')
+            messages.success(request, 'invoices are generated and sent over recipient email(s) address')
 
-        return render(request, 'user/user_dashboard.html')
+        return redirect('dashboard')
     else:
         messages.error(request, '!No file was uploaded.')
-        return render(request, 'user/user_dashboard.html')
-
-
-
-
-def cp_desk_view(request):
-    return render(request, "user/cp_desk.html")
-
-
-# def browse_cpdesk_file(request):
-#     if request.method == 'POST' and request.FILES['cp_desk_file']:
-#         file = request.FILES['cp_desk_file']
-#         filename = file.name
-#         DefaultPath = settings.MEDIA_ROOT
-
-#         cp_desk_file = pd.read_excel(file)
-#         required_columns = ['TLA', 'Principals', 'Inv no', 'To', 'CC']
-
-#         if not set(required_columns).issubset(cp_desk_file.columns):
-#             messages.error(request, '!Invalid CP Desk file.')
-#             return redirect("cp_desk_view")
-
-#         user_data = get_user_model().objects.filter(is_user=True)
-#         if len(user_data) == 0:
-#             messages.error(request, '!No Email configuration found, please contact with admin')
-#             return render(request, 'user/user_dashboard.html')
-
-#         messages.info(request, '!Checking File')
-#         sleep(1)
-
-#         try:
-#             confirm_template = 'user/confirm_continue.html'
-#             if request.method == 'POST' and 'confirm' in request.POST:
-#                 confirm_continue_result = True
-#             elif request.method == 'POST' and 'cancel' in request.POST:
-#                 confirm_continue_result = False
-#             else:
-#                 confirm_continue_result = confirm_continue(request, confirm_template)
-#             if not confirm_continue_result:
-#                 return redirect('confirm_continue')
-
-#             process_de_data_cp_desk(filename, user_data[0])
-#             messages.success(request, '!Process is completed successfully')
-
-#             subject = 'Process is completed successfully'
-#             html_content = render_to_string('user/user_dashboard.html',
-#                                             {'context': 'All invoices are generated and sent over recipient email(s) address'})
-#             text_content = strip_tags(html_content)
-#             msg = EmailMultiAlternatives(subject, text_content, settings.EMAIL_HOST_USER, ['recipient@example.com'])
-#             msg.attach_alternative(html_content, "text/html")
-#             msg.send()
-
-#         except:
-#             messages.error(request, '!Error Occurred.')
-#         finally:
-#             sleep(2)
-#             messages.success(request, '')
-#         return render(request, 'user/confirm_continue.html')
-
-#     return render('cp_desk_view')
+        return redirect('dashboard')

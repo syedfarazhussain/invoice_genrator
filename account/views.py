@@ -51,44 +51,9 @@ def admin_signup(request):
                     request, ('User has been registerd successfully '))
                 return redirect('login')
 
-   # No post data availabe, let's just show the page.
-    else:
-    # if this is a POST request we need to process the form data
-        template = 'admin_register.html'
-    
-        if request.method == 'POST':
-            # create a form instance and populate it with data from the request:
-            form = AdminForm(request.POST)
-            # check whether it's valid:
-            if form.is_valid():
-                if User.objects.filter(username=form.cleaned_data['username']).exists():
-                    return render(request, template, {
-                        'form': form,
-                        'error_message': 'Username already exists.'
-                    })
-                elif form.cleaned_data['password'] != form.cleaned_data['password_repeat']:
-                    return render(request, template, {
-                        'form': form,
-                        'error_message': 'Passwords do not match.'
-                    })
-                else:
-                    # Create the user:
-                    user = User.objects.create_user(
-                        form.cleaned_data['username'],
-                    )
-                    user.set_password(form.cleaned_data['password'])
-                    user.email = ''
-                    user.is_admin = True
-                    user.save()
-                    registred=True
-
-                    # redirect to accounts page:
-                    messages.success(request, ('User has been registerd successfully '))
-                    return redirect('login')
-
     # No post data availabe, let's just show the page.
-        else:
-            form = AdminForm()
+    else:
+        form = AdminForm()
 
         return render(request, template, {'form': form})
 
@@ -104,13 +69,13 @@ def create_user(request):
         if form.is_valid():
             if User.objects.filter(username=form.cleaned_data['username']).exists():
                 return render(request, template, {
-                    'form': form,
-                    'error_message': 'Username already exists.'
+                    'form'          : form,
+                    messages.error  : 'Username already exists.'
                 })
             elif form.cleaned_data['password'] != form.cleaned_data['password_repeat']:
                 return render(request, template, {
-                    'form': form,
-                    'error_message': 'Passwords do not match.'
+                    'form'          : form,
+                    messages.error  : 'Passwords do not match.'
                 })
             else:
                 # Create the user:
@@ -162,7 +127,8 @@ def login(request):
                 return redirect('/')
         else:
             # Incorrect credentials, let's throw an error to the screen.
-            return render(request, 'login.html', {'error_message': 'Incorrect username and / or password.'})
+            messages.error(request, 'Incorrect username and / or password.')
+            return redirect('login')
     else:
         # Do something for anonymous users.
         if request.method == 'POST':
@@ -185,7 +151,8 @@ def login(request):
                     return redirect('home')
             else:
                 # Incorrect credentials, let's throw an error to the screen.
-                return render(request, 'login.html', {'error_message': 'Incorrect username and / or password.'})
+                messages.error(request, 'Incorrect username and / or password.')
+                return redirect('login')
         else:
             # No post data availabe, let's just show the page to the user.
             return render(request, 'login.html')

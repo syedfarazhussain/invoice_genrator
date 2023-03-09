@@ -1,34 +1,63 @@
-<!-- Modal popup -->
-<div id="confirm-continue-popup">
-  <p>Do you want to continue processing the file?</p>
-  <button id="confirm-button">Yes</button>
-  <button id="cancel-button">No</button>
-</div>
+{% extends "base.html" %}
 
-<script>
-  // Show popup window
-  document.getElementById('confirm-continue-popup').style.display = 'block';
+{% block content %}
+  <!-- Modal popup -->
+  <div id="confirm-continue-popup">
+    <p>Do you want to continue processing the file?</p>
+    <button id="confirm-button">Yes</button>
+    <button id="cancel-button">No</button>
+  </div>
 
-  // Set boolean variable based on user response
-  document.getElementById('confirm-button').addEventListener('click', function() {
-    var form = document.getElementById('confirm-continue-form');
-    form.elements.confirm_continue.value = true;
-    form.submit();
-    document.getElementById('confirm-continue-popup').style.display = 'none';
-  });
+  <form id="confirm-continue-form" method="POST">
+    {% csrf_token %}
+    <input type="hidden" name="confirm_continue" value="">
+  </form>
 
-  document.getElementById('cancel-button').addEventListener('click', function() {
-    var form = document.getElementById('confirm-continue-form');
-    form.elements.confirm_continue.value = false;
-    form.submit();
-    document.getElementById('confirm-continue-popup').style.display = 'none';
-  });
-</script>
+  <script>
+    // Show popup window
+    document.getElementById('confirm-continue-popup').style.display = 'block';
 
-<form id="confirm-continue-form" method="POST">
-  {% csrf_token %}
-  <input type="hidden" name="confirm_continue" value="">
-</form>
+    // Set boolean variable based on user response
+    document.getElementById('confirm-button').addEventListener('click', function() {
+      var form = document.getElementById('confirm-continue-form');
+      form.elements.confirm_continue.value = true;
+      form.submit();
+      document.getElementById('confirm-continue-popup').style.display = 'none';
+    });
 
+    document.getElementById('cancel-button').addEventListener('click', function() {
+      var form = document.getElementById('confirm-continue-form');
+      form.elements.confirm_continue.value = false;
+      form.submit();
+      document.getElementById('confirm-continue-popup').style.display = 'none';
+    });
 
+    document.getElementById('confirm-continue-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      if (confirm('Are you sure you want to continue?')) {
+        fetch(this.action, {
+          method: 'POST',
+          body: new FormData(this),
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRFToken': '{{ csrf_token }}',
+          },
+          credentials: 'same-origin',
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            alert('Process completed successfully');
+            window.location.href = '{% url "dashboard" %}';
+          } else {
+            alert('Error occurred: ' + data.message);
+          }
+        })
+        .catch(error => {
+          alert('Error occurred: ' + error.message);
+        });
+      }
+    });
+  </script>
+{% endblock %}
 

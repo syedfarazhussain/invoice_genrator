@@ -1,0 +1,74 @@
+ERROR:root:ABC Maritime
+ERROR:root:'NoneType' object has no attribute 'exists'
+ERROR:root:ABC Maritime
+ERROR:root:'NoneType' object has no attribute 'exists'
+WARNING:django.request:Not Found: /cart.json
+ERROR:root:ABC Maritime
+ERROR:root:'NoneType' object has no attribute 'exists'
+WARNING:django.request:Not Found: /cart.json
+INFO:django.utils.autoreload:F:\invoice_genrator\myapp\utils.py changed, reloading.
+ERROR:root:ABC Maritime
+ERROR:root:'NoneType' object has no attribute 'exists'
+WARNING:django.request:Not Found: /cart.json
+INFO:django.utils.autoreload:F:\invoice_genrator\myapp\utils.py changed, reloading.
+ERROR:root:ABC Maritime
+ERROR:root:Cannot resolve keyword 'child_name' into field. Choices are: Child_Comp, Parent_Comp, Parent_Company_Name, id, user, user_id
+ERROR:root:ABC Maritime
+ERROR:root:'NoneType' object has no attribute 'first'
+WARNING:django.request:Not Found: /cart.json
+INFO:django.utils.autoreload:F:\invoice_genrator\myapp\utils.py changed, reloading.
+ERROR:root:ABC Maritime
+ERROR:root:'dict' object has no attribute 'smtp_sender'
+WARNING:django.request:Not Found: /cart.json
+INFO:django.utils.autoreload:F:\invoice_genrator\myapp\utils.py changed, reloading.
+ERROR:root:ABC Maritime
+ERROR:root:[Errno 2] No such file or directory: 'F:\\invoice_genrator\\output/Invoice_1_ABC Maritime.pdf'
+WARNING:django.request:Not Found: /cart.json
+ERROR:root:ABC Maritime
+ERROR:root:[Errno 2] No such file or directory: 'F:\\invoice_genrator\\output/Invoice_1_ABC Maritime.pdf'
+ERROR:root:ABC Maritime
+ERROR:root:(-2147221008, 'CoInitialize has not been called.', None, None)
+WARNING:django.request:Not Found: /cart.json
+INFO:django.utils.autoreload:F:\invoice_genrator\myapp\utils.py changed, reloading.
+ERROR:root:ABC Maritime
+ERROR:root:(-2147221008, 'CoInitialize has not been called.', None, None)
+WARNING:django.request:Not Found: /cart.json
+INFO:django.utils.autoreload:F:\invoice_genrator\myapp\utils.py changed, reloading.
+ERROR:root:ABC Maritime
+ERROR:root:Connection unexpectedly closed
+WARNING:django.request:Not Found: /cart.json
+INFO:django.utils.autoreload:F:\invoice_genrator\myapp\utils.py changed, reloading.
+ERROR:root:ABC Maritime
+ERROR:root:Connection unexpectedly closed
+WARNING:django.request:Not Found: /cart.json
+WARNING:django.request:Not Found: /cart.json
+WARNING:django.request:Not Found: /cart.json
+INFO:django.utils.autoreload:F:\invoice_genrator\myapp\utils.py changed, reloading.
+ERROR:root:ABC Maritime
+ERROR:root:Connection unexpectedly closed
+ERROR:root:ABC Maritime
+ERROR:root:cannot access local variable 'smtp' where it is not associated with a value
+WARNING:django.request:Not Found: /cart.json
+INFO:django.utils.autoreload:F:\invoice_genrator\myapp\sendEmail.py changed, reloading.
+ERROR:root:ABC Maritime
+ERROR:root:'dict' object has no attribute 'user'
+ERROR:root:Aerio Shipmanagement Ltd
+ERROR:root:'dict' object has no attribute 'user'
+INFO:django.utils.autoreload:F:\invoice_genrator\myapp\utils.py changed, reloading.
+ERROR:root:ABC Maritime
+ERROR:root:'str' object has no attribute 'invoice_number'
+WARNING:django.request:Not Found: /cart.json
+ERROR:root:ABC Maritime
+ERROR:root:'str' object has no attribute 'invoice_number'
+WARNING:django.request:Not Found: /cart.json
+ERROR:root:ABC Maritime
+ERROR:root:'str' object has no attribute 'invoice_number'
+WARNING:django.request:Not Found: /cart.json
+ERROR:root:ABC Maritime
+ERROR:root:'str' object has no attribute 'invoice_number'
+ERROR:root:ABC Maritime
+ERROR:root:unsupported operand type(s) for -: 'str' and 'int'
+ERROR:root:ABC Maritime
+ERROR:root:get_num_invoice() missing 1 required positional argument: 'invoice_type'
+ERROR:root:ABC Maritime
+ERROR:root:Cannot resolve keyword 'invoice_type' into field. Choices are: account_name, current_year, id, invoice_Type, invoice_file_name, invoice_number, previous_month, previous_year, total_cost, user, user_id, user_name
