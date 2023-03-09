@@ -1,0 +1,129 @@
+INFO:root:ABC Maritime['rpa.ankur@gmail.com']['rpa.ankur@gmail.com']['F:\\invoice_genrator\\output/Invoice_1_ABC Maritime.pdf', 'F:\\invoice_genrator\\output/ABC Maritime-Lifting Fees-09032023.xlsx']
+ERROR:root:ABC Maritime
+ERROR:root:2
+INFO:root:ABC Maritime['rpa.ankur@gmail.com']['rpa.ankur@gmail.com']['F:\\invoice_genrator\\output/Invoice_1_ABC Maritime.pdf', 'F:\\invoice_genrator\\output/ABC Maritime-Lifting Fees-09032023.xlsx']
+ERROR:root:ABC Maritime
+ERROR:root:2
+WARNING:django.request:Not Found: /cart.json
+WARNING:django.request:Not Found: /cart.json
+WARNING:django.request:Not Found: /cart.json
+WARNING:django.request:Not Found: /cart.json
+WARNING:django.request:Not Found: /cart.json
+INFO:root:ABC Maritime['rpa.ankur@gmail.com']['rpa.ankur@gmail.com']['F:\\invoice_genrator\\output/Invoice_1_ABC Maritime.pdf', 'F:\\invoice_genrator\\output/ABC Maritime-Lifting Fees-09032023.xlsx']
+ERROR:root:ABC Maritime
+ERROR:root:2
+WARNING:django.request:Not Found: /cart.json
+WARNING:django.request:Not Found: /cart.json
+WARNING:django.request:Not Found: /cart.json
+INFO:root:ABC Maritime['rpa.ankur@gmail.com']['rpa.ankur@gmail.com']['F:\\invoice_genrator\\output/Invoice_1_ABC Maritime.pdf', 'F:\\invoice_genrator\\output/ABC Maritime-Lifting Fees-09032023.xlsx']
+ERROR:root:ABC Maritime
+ERROR:root:2
+WARNING:django.request:Not Found: /cart.json
+WARNING:django.request:Not Found: /cart.json
+WARNING:django.request:Not Found: /cart.json
+WARNING:django.request:Not Found: /cart.json
+WARNING:django.request:Not Found: /cart.json
+INFO:root:ABC Maritime['rpa.ankur@gmail.com']['rpa.ankur@gmail.com']['F:\\invoice_genrator\\output/Invoice_1_ABC Maritime.pdf', 'F:\\invoice_genrator\\output/ABC Maritime-Lifting Fees-09032023.xlsx']
+ERROR:root:ABC Maritime
+ERROR:root:2
+WARNING:django.request:Not Found: /cart.json
+INFO:root:ABC Maritime['rpa.ankur@gmail.com']['rpa.ankur@gmail.com']['F:\\invoice_genrator\\output/Invoice_1_ABC Maritime.pdf', 'F:\\invoice_genrator\\output/ABC Maritime-Lifting Fees-09032023.xlsx']
+ERROR:root:ABC Maritime
+ERROR:root:2
+WARNING:django.request:Not Found: /cart.json
+INFO:django.utils.autoreload:F:\invoice_genrator\myapp\utils.py changed, reloading.
+INFO:root:ABC Maritime['rpa.ankur@gmail.com']['rpa.ankur@gmail.com']['F:\\invoice_genrator\\output/Invoice_1_ABC Maritime.pdf', 'F:\\invoice_genrator\\output/ABC Maritime-Lifting Fees-09032023.xlsx']
+ERROR:root:ABC Maritime
+ERROR:root:2
+WARNING:django.request:Not Found: /cart.json
+INFO:django.utils.autoreload:F:\invoice_genrator\myapp\utils.py changed, reloading.
+INFO:root:ABC Maritime['rpa.ankur@gmail.com']['rpa.ankur@gmail.com']['F:\\invoice_genrator\\output/Invoice_1_ABC Maritime.pdf', 'F:\\invoice_genrator\\output/ABC Maritime-Lifting Fees-09032023.xlsx']
+ERROR:root:ABC Maritime
+ERROR:root:2
+INFO:root:rpa.ankur@gmail.com['F:\\invoice_genrator\\output/Consolidated_Report_09032023.csv']
+WARNING:django.request:Not Found: /cart.json
+INFO:root:ABC Maritime['rpa.ankur@gmail.com']['rpa.ankur@gmail.com']['F:\\invoice_genrator\\output/Invoice_1_ABC Maritime.pdf', 'F:\\invoice_genrator\\output/ABC Maritime-Lifting Fees-09032023.xlsx']
+ERROR:root:ABC Maritime
+ERROR:root:2
+INFO:root:rpa.ankur@gmail.com['F:\\invoice_genrator\\output/Consolidated_Report_09032023.csv']
+WARNING:django.request:Not Found: /cart.json
+INFO:django.utils.autoreload:F:\invoice_genrator\myapp\utils.py changed, reloading.
+INFO:root:ABC Maritime['rpa.ankur@gmail.com']['rpa.ankur@gmail.com']['F:\\invoice_genrator\\output/Invoice_1_ABC Maritime.pdf', 'F:\\invoice_genrator\\output/ABC Maritime-Lifting Fees-09032023.xlsx']
+ERROR:root:ABC Maritime
+ERROR:root:'dict' object has no attribute 'user'
+INFO:django.utils.autoreload:F:\invoice_genrator\myapp\utils.py changed, reloading.
+INFO:root:ABC Maritime['rpa.ankur@gmail.com']['rpa.ankur@gmail.com']['F:\\invoice_genrator\\output/Invoice_1_ABC Maritime.pdf', 'F:\\invoice_genrator\\output/ABC Maritime-Lifting Fees-09032023.xlsx']
+ERROR:root:ABC Maritime
+ERROR:root:'dict' object has no attribute 'user'
+INFO:root:rpa.ankur@gmail.com['F:\\invoice_genrator\\output/Consolidated_Report_09032023.csv']
+WARNING:django.request:Not Found: /cart.json
+INFO:django.utils.autoreload:F:\invoice_genrator\myapp\utils.py changed, reloading.
+INFO:root:ABC Maritime['rpa.ankur@gmail.com']['rpa.ankur@gmail.com']['F:\\invoice_genrator\\output/Invoice_1_ABC Maritime.pdf', 'F:\\invoice_genrator\\output/ABC Maritime-Lifting Fees-09032023.xlsx']
+ERROR:root:ABC Maritime
+ERROR:root:'dict' object has no attribute 'user'
+INFO:root:rpa.ankur@gmail.com['F:\\invoice_genrator\\output/Consolidated_Report_09032023.csv']
+WARNING:django.request:Not Found: /cart.json
+INFO:django.utils.autoreload:F:\invoice_genrator\myapp\utils.py changed, reloading.
+INFO:root:ABC Maritime['rpa.ankur@gmail.com']['rpa.ankur@gmail.com']['F:\\invoice_genrator\\output/Invoice_1_ABC Maritime.pdf', 'F:\\invoice_genrator\\output/ABC Maritime-Lifting Fees-09032023.xlsx']
+ERROR:root:ABC Maritime
+ERROR:root:type object 'Invoices' has no attribute 'object'
+INFO:root:rpa.ankur@gmail.com['F:\\invoice_genrator\\output/Consolidated_Report_09032023.csv']
+WARNING:django.request:Not Found: /cart.json
+INFO:django.utils.autoreload:F:\invoice_genrator\myapp\utils.py changed, reloading.
+INFO:root:ABC Maritime['rpa.ankur@gmail.com']['rpa.ankur@gmail.com']['F:\\invoice_genrator\\output/Invoice_1_ABC Maritime.pdf', 'F:\\invoice_genrator\\output/ABC Maritime-Lifting Fees-09032023.xlsx']
+INFO:django.utils.autoreload:F:\invoice_genrator\myapp\utils.py changed, reloading.
+ERROR:root:ABC Maritime
+ERROR:root:QuerySet.create() takes 1 positional argument but 10 were given
+INFO:root:ABC Maritime['rpa.ankur@gmail.com']['rpa.ankur@gmail.com']['F:\\invoice_genrator\\output/Invoice_1_ABC Maritime.pdf', 'F:\\invoice_genrator\\output/ABC Maritime-Lifting Fees-09032023.xlsx']
+ERROR:root:ABC Maritime
+ERROR:root:QuerySet.create() takes 1 positional argument but 10 were given
+INFO:root:rpa.ankur@gmail.com['F:\\invoice_genrator\\output/Consolidated_Report_09032023.csv']
+WARNING:django.request:Not Found: /cart.json
+WARNING:django.request:Not Found: /cart.json
+WARNING:django.request:Not Found: /cart.json
+WARNING:django.request:Not Found: /cart.json
+WARNING:django.request:Not Found: /cart.json
+WARNING:django.request:Not Found: /cart.json
+WARNING:django.request:Not Found: /cart.json
+WARNING:django.request:Not Found: /cart.json
+WARNING:django.request:Not Found: /cart.json
+INFO:root:ABC Maritime['rpa.ankur@gmail.com']['rpa.ankur@gmail.com']['F:\\invoice_genrator\\output/Invoice_1_ABC Maritime.pdf', 'F:\\invoice_genrator\\output/ABC Maritime-Lifting Fees-09032023.xlsx']
+ERROR:root:ABC Maritime
+ERROR:root:QuerySet.create() takes 1 positional argument but 10 were given
+INFO:root:rpa.ankur@gmail.com['F:\\invoice_genrator\\output/Consolidated_Report_09032023.csv']
+WARNING:django.request:Not Found: /cart.json
+INFO:root:ABC Maritime['rpa.ankur@gmail.com']['rpa.ankur@gmail.com']['F:\\invoice_genrator\\output/Invoice_1_ABC Maritime.pdf', 'F:\\invoice_genrator\\output/ABC Maritime-Lifting Fees-09032023.xlsx']
+WARNING:django.request:Not Found: /cart.json
+INFO:root:ABC Maritime['rpa.ankur@gmail.com']['rpa.ankur@gmail.com']['F:\\invoice_genrator\\output/Invoice_1_ABC Maritime.pdf', 'F:\\invoice_genrator\\output/ABC Maritime-Lifting Fees-09032023.xlsx']
+WARNING:django.request:Not Found: /cart.json
+INFO:root:ABC Maritime['rpa.ankur@gmail.com']['rpa.ankur@gmail.com']['F:\\invoice_genrator\\output/Invoice_1_ABC Maritime.pdf', 'F:\\invoice_genrator\\output/ABC Maritime-Lifting Fees-09032023.xlsx']
+WARNING:django.request:Not Found: /cart.json
+WARNING:django.request:Not Found: /cart.json
+WARNING:django.request:Not Found: /cart.json
+WARNING:django.request:Not Found: /cart.json
+WARNING:django.security.csrf:Forbidden (CSRF token from POST incorrect.): /browse_lifting_file/
+WARNING:django.request:Not Found: /cart.json
+WARNING:django.request:Not Found: /cart.json
+WARNING:django.request:Not Found: /cart.json
+ERROR:root:ABC Maritime
+ERROR:root:'str' object has no attribute 'invoice_number'
+INFO:root:rpa.ankur@gmail.com['F:\\invoice_genrator\\output/Consolidated_Report_09032023.csv']
+WARNING:django.request:Not Found: /cart.json
+WARNING:django.request:Not Found: /cart.json
+WARNING:django.request:Not Found: /cart.json
+WARNING:django.request:Not Found: /cart.json
+WARNING:django.request:Not Found: /cart.json
+WARNING:django.request:Not Found: /cart.json
+WARNING:django.request:Not Found: /cart.json
+WARNING:django.request:Not Found: /cart.json
+ERROR:root:ABC Maritime
+ERROR:root:'str' object has no attribute 'invoice_number'
+INFO:root:rpa.ankur@gmail.com['F:\\invoice_genrator\\output/Consolidated_Report_09032023.csv']
+WARNING:django.request:Not Found: /cart.json
+INFO:root:ABC Maritime['rpa.ankur@gmail.com']['rpa.ankur@gmail.com']['F:\\invoice_genrator\\output/Invoice_1_ABC Maritime.pdf', 'F:\\invoice_genrator\\output/ABC Maritime-Lifting Fees-09032023.xlsx']
+WARNING:django.request:Not Found: /cart.json
+INFO:django.utils.autoreload:F:\invoice_genrator\myapp\utils.py changed, reloading.
+INFO:root:ABC Maritime['rpa.ankur@gmail.com']['rpa.ankur@gmail.com']['F:\\invoice_genrator\\output/Invoice_1_ABC Maritime.pdf', 'F:\\invoice_genrator\\output/ABC Maritime-Lifting Fees-09032023.xlsx']
+WARNING:django.request:Not Found: /cart.json
+INFO:root:ABC Maritime['rpa.ankur@gmail.com']['rpa.ankur@gmail.com']['F:\\invoice_genrator\\output/Invoice_1_ABC Maritime.pdf', 'F:\\invoice_genrator\\output/ABC Maritime-Lifting Fees-09032023.xlsx']
+WARNING:django.request:Not Found: /cart.json

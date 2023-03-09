@@ -1,0 +1,3 @@
+  0%|                                                                                                                 | 0/1 [00:00<?, ?it/s]100%|#########################################################################################################| 1/1 [00:02<00:00,  2.46s/it]100%|#########################################################################################################| 1/1 [00:02<00:00,  2.60s/it]
+F:\invoice_genrator\env\Lib\site-packages\django\template\defaulttags.py:84: UserWarning: A {% csrf_token %} was used in a template, but the context did not provide the value.  This is usually caused by not using RequestContext.
+  warnings.warn(
