@@ -1,6 +1,6 @@
 import traceback
 from django.db import IntegrityError
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
@@ -24,6 +24,8 @@ from .models import (UserData,
                     AccountList,
                     CpDeskInvoices,
                     )
+output_dir = settings.MEDIA_ROOT[1]
+archive_dir = settings.MEDIA_ROOT[2]
 
 # Create your views here.
 @login_required
@@ -48,9 +50,11 @@ def dashboard(request):
 @login_required
 def settings(request):
     template = 'admin/settings.html'
-
+    user_data = UserData.objects.filter(user_id=request.user.id).first()
+    print(f"this is type of you getting from ORM  {type(user_data)}")
     context = {
-        'title': 'Settings'
+        'title': 'Settings',
+        'user_data' : user_data
     }
 
     return render(request, template, context)
@@ -111,7 +115,7 @@ def insert_user_data(request):
                 user.smtp_pass = smtp_pass
                 user.save()
                 messages.success(request, 'User Data Updated Successfully')
-                return redirect('dashboard')
+                return redirect('settings')
 
             else:
                 UserData.objects.create(
@@ -124,14 +128,33 @@ def insert_user_data(request):
                     user = request.user
                 )
 
-            messages.success(request, 'User Data Uploaded Successfully')
-            return redirect('dashboard')
+            messages.success(request, 'User Data Added Successfully')
+            return redirect('settings')
 
     else:
         form = UserDataForm()
 
-    return render(request, 'dashboard.html', {'form': form})
+    return render(request, 'settings.html', {'form': form})
 
+def update_user_data(request, id):
+    context ={}
+ 
+    # fetch the object related to passed id
+    obj = get_object_or_404(UserData, id=id)
+ 
+    # pass the object as instance in form
+    form = UserDataForm(request.POST or None, instance = obj)
+ 
+    # save the data from the form and
+    # redirect to detail_view
+    if form.is_valid():
+        form.save()
+        messages.success(request, 'Email Configurations Updated Successfully')
+        return redirect("settings")
+    # add form dictionary to context
+    context["form"] = form
+    
+    return render(request, "settings.html", context)
 
 @login_required
 def upload_master_data(request):
@@ -419,7 +442,7 @@ def browse_lifting_file(request):
             
             if not set(required_columns).issubset(lift_fee_file.columns):
                 messages.error(request, '!Invalid Lifting fee file.')
-                return render(request, template_name)
+                return redirect('dashboard')
 
             user_data = UserData.objects.all()
             if len(user_data) == 0:
@@ -463,10 +486,6 @@ def browse_lifting_file(request):
             process_de_data(request, lift_fee_json_data, user_data)
             messages.success(request, '!Process is completed successfully')
 
-            subject = 'Process is completed successfully'
-            html_content = render_to_string('user/user_dashboard.html', {'context': 'All invoices are generated and sent over recipient email(s) address'})
-            text_content = strip_tags(html_content)
-
         except Exception as e:
             traceback.print_exc()
             messages.error(request, f'!Error Occurred: {e}')
@@ -477,3 +496,27 @@ def browse_lifting_file(request):
     else:
         messages.error(request, '!No file was uploaded.')
         return redirect('dashboard')
+
+
+def split_lifting_file(request):
+    template_name = 'user/user_dashboard.html'
+
+    try:
+        # Open the excel file and get the active sheet
+        if request.method == 'POST' and request.FILES['split_data_file']:
+            file = request.FILES['split_data_file']
+            wb = openpyxl.load_workbook(file)
+            ws = wb.active
+    except:
+        messages.error(request, "'Invalid Excel File'")
+        return redirect('dashboard')
+            # DefaultPath = settings.MEDIA_ROOT
+
+    split_lift_fee_file = pd.read_excel(file)
+    required_columns = ['Buy', 'Buy Amount', 'Sell', 'Sell Amount', 'Fee', 'Total Settlement', 'Beneficiary', 'When Booked', 'When Created', 'Created By', 'Delivery Method', 'Reference', 'Delivery Country ISO Code', 'Delivery Country Name', 'Your Reference', 'Cheque Number', 'Beneficiary ID', 'Execution Date', 'Payment Line Status', 'Payment Number', 'Processing Date', 'Bank Reference Number', 'AccountName', 'Bank Value Date', 'Exchange Rate', 'Our Reference', 'Charges Type', 'USD AMOUNT']
+
+    
+    if not set(required_columns).issubset(split_lift_fee_file.columns):
+        messages.error(request, '!Invalid Lifting fee file.')
+        return render(request, template_name)
+    
