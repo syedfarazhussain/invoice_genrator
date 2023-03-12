@@ -1,0 +1,12 @@
+ERROR:root:ABC Maritime
+ERROR:root:please run connect() first
+WARNING:django.request:Not Found: /cart.json
+WARNING:django.request:Not Found: /cart.json
+WARNING:django.request:Not Found: /cart.json
+WARNING:django.request:Not Found: /cart.json
+WARNING:django.request:Not Found: /cart.json
+WARNING:django.request:Not Found: /cart.json
+WARNING:django.request:Not Found: /cart.json
+WARNING:django.request:Not Found: /cart.json
+WARNING:django.request:Not Found: /cart.json
+INFO:django.utils.autoreload:F:\invoice_genrator\myapp\views.py changed, reloading.
