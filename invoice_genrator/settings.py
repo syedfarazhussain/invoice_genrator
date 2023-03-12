@@ -53,6 +53,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
 LOGIN_URL = 'login'
 ROOT_URLCONF = 'invoice_genrator.urls'
 
@@ -134,6 +135,7 @@ MEDIA_ROOT = [
     os.path.join(BASE_DIR,'media'),
     os.path.join(BASE_DIR, 'output'),
     os.path.join(BASE_DIR, 'archive'),
+    os.path.join(BASE_DIR, 'input'),
 ]
 
 STATICFILES_DIRS = [

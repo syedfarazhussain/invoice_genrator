@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from account.models import User
 from time import sleep
 import pandas as pd
-from .models import AccountList, MasterData, Invoices, EmailCondition, GroupComp
+from .models import AccountList, CpDeskInvoices, MasterData, Invoices, EmailCondition, GroupComp
 from PyPDF2 import PdfMerger
 from openpyxl import load_workbook
 from openpyxl.workbook import Workbook
@@ -21,6 +21,7 @@ from .sendEmail import send_mail, send_consolidated_mail, send_group_mail
 
 output_dir = settings.MEDIA_ROOT[1]
 archive_dir = settings.MEDIA_ROOT[2]
+input_dir = settings.MEDIA_ROOT[3]
 
 if settings.EMAIL:
     ConsolidatedEmail = settings.EMAIL[0]['ConsolidatedEmail']
@@ -76,7 +77,6 @@ def check_group_list(account_name):
 
 def process_de_data(request, lift_fee_json_data, user_data):
     Word_To_PDF_OBJ = None
-    lifting_file_index = ['Buy', 'Buy Amount', 'Sell', 'Sell Amount', 'Fee', 'Total Settlement', 'Beneficiary', 'When Booked', 'When Created', 'Created By', 'Delivery Method', 'Reference', 'Delivery Country ISO Code', 'Delivery Country Name', 'Your Reference', 'Cheque Number', 'Beneficiary ID', 'Execution Date', 'Payment Line Status', 'Payment Number', 'Processing Date', 'Bank Reference Number', 'AccountName', 'Bank Value Date', 'Exchange Rate', 'Our Reference', 'Charges Type', 'USD AMOUNT']
     current_user = User.objects.filter(id=user_data['user']).first()
     try:
         data = json.loads(lift_fee_json_data)
@@ -91,7 +91,6 @@ def process_de_data(request, lift_fee_json_data, user_data):
     except Exception as e:
         messages.error(request, f"!Error Occurred: {str(e)}")
     messages.info(request, '!Checking File')
-    sleep(1)
 
     processed_data = {}
     df = pd.read_excel(workbook)
@@ -104,7 +103,6 @@ def process_de_data(request, lift_fee_json_data, user_data):
                 processed_data[row['AccountName']] = [row.to_dict()]
 
     messages.info(request, '!Generating invoices')
-    today = datetime.datetime.now()
     Word_To_PDF_OBJ = Word_To_PDF()
     
     isSendEmail = 'True'
@@ -404,10 +402,115 @@ def process_de_data(request, lift_fee_json_data, user_data):
         f'{output_dir}/{Consolidated_Report}',
         f'{archive_dir}/{Consolidated_Report}'
     )
+
+
+#process_de_cp_desk function-------------------------------------------------------------------------------
+
+def process_de_cp_desk_data(request, cp_desk_file, user_data):
+    Word_To_PDF_OBJ = None
+    current_user = User.objects.filter(id=user_data['user']).first()
+    try:
+        data = json.loads(cp_desk_file)
+        df = pd.DataFrame(data)
+        with io.BytesIO() as output:
+            with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
+                df.to_excel(writer, index=False)
+            workbook = output.getvalue()
+        response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+        response['Content-Disposition'] = 'attachment; filename=output.xlsx'
+        response.write(workbook)
+    except Exception as e:
+        messages.error(request, f"!Error Occurred: {str(e)}")
+    messages.info(request, '!Checking File')
+
+    processed_data = {}
+    df = pd.read_excel(workbook)
+    for index, row in df.iterrows():
+        if pd.isna(row['Principals']) == False:
+            if row['Principals'] in processed_data:
+                processed_data[row['Principals']].append(row.to_dict())
+            else:
+                processed_data[row['Principals']] = [row.to_dict()]
+    Word_To_PDF_OBJ = Word_To_PDF()
+    
+    isSendEmail = 'True'
+    today = datetime.date.today()
+    current_year_number = today.strftime("%Y")
+    last_month_number = str(int(today.strftime("%m")) - 1).zfill(2)
+    last_year_number = today.strftime("%Y")
+    current_date_format = today.strftime("%d%m%Y")
+    Consolidated_Report = f'CP_Desk_Consolidated_Report_{last_month_number}_{last_year_number}.csv'
+    confirmation_exists = 'False'
+    with open(f"{output_dir}/{Consolidated_Report}", 'w', newline='') as consolidated_write_file:
+        consolidated_writer = csv.writer(consolidated_write_file, csv.unix_dialect)
+        consolidated_writer.writerow(
+            ['Account Name', 'Email_ids', 'Invoice_Number', 'User'])
+        for account_name in processed_data:
+            try:
+                invoice_number = processed_data[account_name][0]['TLA']
+                invoice_pdf_file = str(invoice_number)+'-CP'+str('-')+str(last_month_number)+str(last_year_number)+str('.pdf')
+                invoice_excel_file = str(invoice_number)+'-CP'+str('-')+str(last_month_number)+str(last_year_number)+str('.xlsx')
+                email_ids_TO = str(processed_data[account_name][0]['To']).split(';')
+                cleanedList = str(processed_data[account_name][0]['CC']).split(';')
+
+                if os.path.exists(f'{input_dir}/{invoice_pdf_file}') and os.path.exists(f'{input_dir}/{invoice_excel_file}'):
+                    files = [f'{input_dir}/{invoice_pdf_file}', f'{input_dir}/{invoice_excel_file}']
+                    invoice_exists = CpDeskInvoices.objects.filter(account_name=account_name, previous_month=last_month_number, previous_year=last_year_number).exists()
+                    confirm_creating_invoice = True
+                    if not invoice_exists == False:
+                        if confirmation_exists.lower() == 'false':
+                            confirm_creating_invoice = True
+                            if confirm_creating_invoice:
+                                confirmation_exists = 'true'
+
+                    if confirm_creating_invoice:
+                        messages.success(request, f"!Creating invoice for {account_name} and !Sending email to {account_name}")
+
+                        please_confirm_text = "Please confirm we are able to deduct these lifting fees from the respective currency balance."
+                        if isSendEmail.lower() == 'true':
+                                            send_mail(
+                                                send_from=user_data['smtp_sender'],
+                                                send_to=email_ids_TO,
+                                                send_cc=cleanedList,
+                                                files=files,
+                                                receiver_name=account_name,
+                                                smtp_server=user_data['smtp_server'],
+                                                smtp_port=user_data['smtp_port'],
+                                                smtp_user=user_data['smtp_user'],
+                                                smtp_pass=user_data['smtp_pass'],
+                                    
+                                            )
+                        if not invoice_exists:
+                            invoices = CpDeskInvoices.objects.create(
+                                        account_name=account_name, 
+                                        invoice_file_pdf=invoice_pdf_file,
+                                        invoice_file_excel=invoice_excel_file, 
+                                        invoice_number=invoice_number,
+                                        previous_month=last_month_number, 
+                                        previous_year=last_year_number,
+                                        current_year=current_year_number,
+                                        user_name=current_user.username,
+                                    )
+                        logging.basicConfig(
+                            filename=f"{archive_dir}/Logger_{current_date_format}.log",
+                            level=logging.INFO)
+                        logging.info(
+                            str(account_name) + str(str(email_ids_TO) + str(cleanedList)) + str(
+                                files))
+                        messages.success(request, f"!Email sent to{account_name}")
+                    consolidated_writer.writerow(
+                        [account_name, str(email_ids_TO)+str(cleanedList),invoice_number, current_user.username])
+                else:
+                    consolidated_writer.writerow(
+                        [account_name, str(email_ids_TO) + str(cleanedList),'Invoice(s) do not exist in local folder',
+                            current_user.username])
+            except Exception as e:
+                sleep(1)
+                logging.basicConfig(filename=f"{output_dir}/Logger_{current_date_format}.log", level=logging.ERROR)
+                logging.error(account_name)
+                logging.error(e)
+
 # WORD TO PDF---------------------------------------------------------------------------------------------
-
-
-
 
 class Word_To_PDF:
 

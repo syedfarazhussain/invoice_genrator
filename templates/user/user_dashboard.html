@@ -46,7 +46,7 @@
            </div>
 
            <div class="col-md-4">
-              <form action="#" method="post" enctype="multipart/form-data">
+              <form action="{% url 'split_lifting_file' %}" method="post" enctype="multipart/form-data">
                  <div class="card">
                       {% csrf_token %}
                       <h5 class="card-header">Split Lifting Fee File</h5>
@@ -56,8 +56,6 @@
                                  name="split_data_file"
                                  class="form-control"
                                  required="required">
-                          
-                          
                       </div>
                       <div class="card-footer">
                           <button type="submit" class="btn btn-primary"> Upload </button>
@@ -68,7 +66,7 @@
 
        <div class="row mt-5">
           <div class="col-md-4 mx-auto">
-              <form action="#" method="post" enctype="multipart/form-data">
+              <form action="{% url 'get_Invoice_data' %}">
                 {% csrf_token %}
                 <div class="card">
                   <h5 class="card-header">Get Invoice Data</h5>

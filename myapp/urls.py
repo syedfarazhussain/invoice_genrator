@@ -15,4 +15,9 @@ urlpatterns = [
     path('add_group_condition/', views.add_group_condition, name='add_group_condition'),
     path('create_account_list/', views.create_account_list, name='create_account_list'),
     path('browse_lifting_file/', views.browse_lifting_file, name='browse_lifting_file'),
+    path('split_lifting_file/', views.split_lifting_file, name='split_lifting_file'),
+    path('get_Invoice_data/', views.get_Invoice_data, name='get_Invoice_data'),
+    path('browse_cp_desk_file/', views.browse_cp_desk_file, name='browse_cp_desk_file'),
+    path('split_cp_desk_file/', views.split_cp_desk_file, name='split_cp_desk_file'),
+    path('get_cp_desk_Invoice_data/', views.get_cp_desk_Invoice_data, name='get_cp_desk_Invoice_data'),
 ]
