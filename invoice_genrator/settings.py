@@ -126,7 +126,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'static'),
 ]
-STATIC_ROOT = '/var/www/invoice_genrator/staticfiles'
+STATIC_ROOT= os.path.join(BASE_DIR, 'assets')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -144,12 +144,6 @@ MEDIA_ROOT = [
 
 
 AUTH_USER_MODEL = 'account.User'
-
-#Authentication backends
-AUTHENTICATION_BACKENDS = (
-        'django.contrib.auth.backends.ModelBackend',
-        
-    )
 
 EMAIL = [
     {
