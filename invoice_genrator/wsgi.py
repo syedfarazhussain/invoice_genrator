@@ -13,7 +13,7 @@ from django.core.wsgi import get_wsgi_application
 
 import sys
 
-path = '/home/invoice_genrator/'
+path = '/var/www/invoice_genrator/'
 if path not in sys.path:
     sys.path.append(path)
 
