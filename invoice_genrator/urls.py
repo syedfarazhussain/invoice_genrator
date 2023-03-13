@@ -23,6 +23,7 @@ urlpatterns = [
     path('', include('myapp.urls')),
     path('account/', include('account.urls')),
 ]
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT[0])
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT[1])
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT[2])

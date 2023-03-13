@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-4w_^@b7ux-my5uqab+)9j*-ehmckm%973w4+hj&h40x018s_8m
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['http://103.54.57.75','localhost']
 
 
 # Application definition
@@ -123,6 +123,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR,'static'),
+]
+STATIC_ROOT = '/home/invoice_genrator/staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -138,9 +142,6 @@ MEDIA_ROOT = [
     os.path.join(BASE_DIR, 'input'),
 ]
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR,'static'),
-]
 
 AUTH_USER_MODEL = 'account.User'
 
