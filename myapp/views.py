@@ -61,7 +61,6 @@ def dashboard(request):
 def settings(request):
     template = 'admin/settings.html'
     user_data = UserData.objects.filter(user_id=request.user.id).first()
-    print(f"this is type of you getting from ORM  {type(user_data)}")
     context = {
         'title': 'Settings',
         'user_data' : user_data
