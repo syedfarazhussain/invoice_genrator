@@ -603,7 +603,8 @@ def get_Invoice_data(request):
     except Exception as e:
         traceback.print_exc()
         messages.error(request, f'!Error Occurred: {e}')
-
+        return redirect("dashboard")
+    
 @login_required
 def browse_cp_desk_file(request):
     template_name = 'user/cp_desk.html'
