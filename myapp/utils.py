@@ -1,4 +1,4 @@
-import os, shutil, csv, io, traceback, sys, xlsxwriter, json, datetime, logging
+import os, shutil, csv, io, traceback, sys, xlsxwriter, json, datetime, logging, pythoncom
 from lib2to3.pgen2.pgen import DFAState
 from django.conf import settings
 from django.contrib import messages
@@ -567,9 +567,9 @@ class Word_To_PDF:
         doc.render(context)
         doc.save(f"{output_dir}/{invoice_title}.docx")
         sys.stderr = open("consoleoutput.log", "w")
-        # pythoncom.CoInitialize()
+        pythoncom.CoInitialize()
         convert(f"{output_dir}/{invoice_title}.docx", f"{output_dir}/{invoice_title}.pdf")
-        # pythoncom.CoUninitialize()
+        pythoncom.CoUninitialize()
         if os.path.exists(f"{output_dir}/{invoice_title}.docx"):
             os.remove(f"{output_dir}/{invoice_title}.docx")
         return [f"{invoice_title}.pdf", invoice_number]
