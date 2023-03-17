@@ -1,23 +1,18 @@
-import datetime
-import os
-import traceback
+import datetime, os, traceback, openpyxl, json
 from django.db import IntegrityError
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from django.urls import reverse
+
+from account.models import User
 from .forms import UserDataForm
 import pandas as pd
 from django.conf import settings
-from django.core.mail import EmailMultiAlternatives
-from django.template.loader import render_to_string
-from django.utils.html import strip_tags
-import openpyxl, json
 from django.core import serializers
 from .utils import process_de_data, process_de_cp_desk_data
 from django.conf import settings
-from time import sleep
 from .models import (UserData,
                     EmailCondition,
                     GroupComp,
@@ -43,10 +38,27 @@ def dashboard(request):
     template_admin = 'dashboard.html'
     template_user = 'user/user_dashboard.html'
 
+    user = User.objects.all()
+    total_user = len(user)
+
+    invoices = Invoices.objects.all()
+    total_invoices = len(invoices)
+
+    cp_desk_invoices =   CpDeskInvoices.objects.all()
+    total_cp_desk_invoices = len(cp_desk_invoices)
+
+    user_data = UserData.objects.all()
+    total_user_data = len(user_data)
+
     if request.user.is_authenticated:
         if request.user.is_admin:
             context = {
-                'title': 'Dashboard'
+                'title'                  : 'Dashboard',
+                'total_user'             : total_user,
+                'total_invoices'         : total_invoices,
+                'total_cp_desk_invoices' : total_cp_desk_invoices,
+                'total_user_data'        : total_user_data  
+
             }
             return render(request, template_admin, context)
         else:
