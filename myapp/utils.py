@@ -116,7 +116,7 @@ def process_de_data(request, lift_fee_json_data, user_data):
     confirmation_exists = 'False'
 
     with open(f"{output_dir}/{Consolidated_Report}", 'w', newline='') as consolidated_write_file:
-        consolidated_writer = csv.writer(consolidated_write_file, csv.unix_dialect)
+        consolidated_writer = csv.writer(consolidated_write_file, csv.excel)
         consolidated_writer.writerow(['Account Name', 'Email_ids', 'Invoice_Number', 'VAT Type', 'Total USD Amount', 'GBP Rate','User'])
 
         for account_name in processed_data:

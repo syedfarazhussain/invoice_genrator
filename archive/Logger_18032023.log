@@ -1,0 +1,3 @@
+INFO:root:ABC Maritime['rpa.ankur@gmail.com']['rpa.ankur@gmail.com']['F:\\invoice_genrator\\output/Invoice_2023000001_ABC Maritime.pdf', 'F:\\invoice_genrator\\output/ABC Maritime-Lifting Fees-18032023.xlsx']
+INFO:django.utils.autoreload:F:\invoice_genrator\myapp\utils.py changed, reloading.
+INFO:root:ABC Maritime['rpa.ankur@gmail.com']['rpa.ankur@gmail.com']['F:\\invoice_genrator\\output/Invoice_2023000001_ABC Maritime.pdf', 'F:\\invoice_genrator\\output/ABC Maritime-Lifting Fees-18032023.xlsx']
