@@ -1,32 +1,1 @@
-  0%|                                                                                                                 | 0/1 [00:00<?, ?it/s]100%|#########################################################################################################| 1/1 [00:01<00:00,  1.55s/it]100%|#########################################################################################################| 1/1 [00:01<00:00,  1.62s/it]
-Traceback (most recent call last):
-  File "F:\invoice_genrator\myapp\utils.py", line 192, in process_de_data
-    send_mail(
-  File "F:\invoice_genrator\myapp\sendEmail.py", line 71, in send_mail
-    smtp.quit()
-  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python310\lib\smtplib.py", line 1004, in quit
-    res = self.docmd("quit")
-  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python310\lib\smtplib.py", line 431, in docmd
-    self.putcmd(cmd, args)
-  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python310\lib\smtplib.py", line 378, in putcmd
-    self.send(f'{s}{CRLF}')
-  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python310\lib\smtplib.py", line 365, in send
-    raise SMTPServerDisconnected('please run connect() first')
-smtplib.SMTPServerDisconnected: please run connect() first
-Traceback (most recent call last):
-  File "F:\invoice_genrator\myapp\views.py", line 500, in browse_lifting_file
-    process_de_data(request, lift_fee_json_data, user_data)
-  File "F:\invoice_genrator\myapp\utils.py", line 387, in process_de_data
-    send_consolidated_mail(
-  File "F:\invoice_genrator\myapp\sendEmail.py", line 109, in send_consolidated_mail
-    smtp.login(smtp_user, smtp_pass)
-  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python310\lib\smtplib.py", line 739, in login
-    (code, resp) = self.auth(
-  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python310\lib\smtplib.py", line 642, in auth
-    (code, resp) = self.docmd("AUTH", mechanism + " " + response)
-  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python310\lib\smtplib.py", line 432, in docmd
-    return self.getreply()
-  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python310\lib\smtplib.py", line 405, in getreply
-    raise SMTPServerDisconnected("Connection unexpectedly closed")
-smtplib.SMTPServerDisconnected: Connection unexpectedly closed
-number, previous_month, previous_year, user, user_id, user_name
+  0%|                                                                                                                  | 0/1 [00:00<?, ?it/s]100%|##########################################################################################################| 1/1 [00:05<00:00,  5.17s/it]100%|##########################################################################################################| 1/1 [00:05<00:00,  5.27s/it]

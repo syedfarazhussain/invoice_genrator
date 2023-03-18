@@ -5,7 +5,6 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from django.urls import reverse
-
 from account.models import User
 from .forms import UserDataForm
 import pandas as pd
@@ -38,7 +37,7 @@ def dashboard(request):
     template_admin = 'dashboard.html'
     template_user = 'user/user_dashboard.html'
 
-    user = User.objects.all()
+    user = User.objects.filter(is_user=True)
     total_user = len(user)
 
     invoices = Invoices.objects.all()
